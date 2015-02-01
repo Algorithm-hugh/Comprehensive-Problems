@@ -1,6 +1,6 @@
 /**
  * Created by Hugh on 2015/1/30 0030.
- * 内容：小猫钓鱼Member类
+ * 内容：小猫钓鱼Player类
  * 描述：实现玩小猫钓鱼的人的相关操作，主要使用队列
  * 备注：java包中，Queue为接口，LinkedList实现了Queue接口，使用形如：
  *      Queue<String> queue = new LinkedList<String>();
@@ -10,13 +10,13 @@
 import java.util.LinkedList;
 import java.util.Queue;
 
-public class Member {
+public class Player {
     private Queue<String> pokers;
-    private int cardAmount;
+    private int pokerAmount;
     private String name;
 
-    public int getCardAmount() {
-        return cardAmount;
+    public int getPokerAmount() {
+        return pokerAmount;
     }
     public void setName(String name){
         this.name = name;
@@ -25,18 +25,18 @@ public class Member {
         return this.name;
     }
 
-    public Member() {}
+    public Player() {}
 
     //小猫钓鱼游戏中，得到初始牌
     public void getInitialPokers(Queue<String> initialCards){
         pokers = initialCards;
-        cardAmount = pokers.size();
+        pokerAmount = pokers.size();
     }
     //小猫钓鱼游戏中，出一张牌
     public String playACard(){
         String playedCard = pokers.poll();
         if (playedCard != null){
-            cardAmount--;
+            pokerAmount--;
         }
         return playedCard;
     }
@@ -47,7 +47,7 @@ public class Member {
         for (int i = 0; i < winningCardsAmount; i++) {
             pokers.add(winningCards.poll());
         }
-        cardAmount+=winningCardsAmount;
+        pokerAmount +=winningCardsAmount;
     }
 
     public static void main(String[] args){
@@ -63,19 +63,19 @@ public class Member {
         winningCards.add("黑桃Q");
         winningCards.add("黑桃K");
         //实例化Member，设置名字，得到初始牌，赢得卡片
-        Member member = new Member();
-        member.setName("Hugh");
-        member.getInitialPokers(queue);
-        member.winCards(winningCards);
+        Player player = new Player();
+        player.setName("Hugh");
+        player.getInitialPokers(queue);
+        player.winCards(winningCards);
         //member出完手中所有牌
         while (true){
-            String card = member.playACard();
+            String card = player.playACard();
             if (card == null){
                 break;
             }
 
             System.out.println(card);
-            System.out.println(member.getName()+"还剩 " + member.getCardAmount() + " 张牌");
+            System.out.println(player.getName()+"还剩 " + player.getPokerAmount() + " 张牌");
         }
     }
 }
